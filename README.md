@@ -1,2 +1,2 @@
 # fireworks_schema
-This is a package provides a JSON schema for the fireworks package
+This package provides a JSON schema for the FireWorks package https://github.com/materialsproject/fireworks.
