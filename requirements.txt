@@ -1,0 +1,2 @@
+jsonschema>=3.2.0
+fireworks>=1.9.6

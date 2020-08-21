@@ -1,0 +1,8 @@
+JSON_SCHEMA_VALIDATE: true
+JSON_SCHEMA_VALIDATE_LIST:
+- CommonAdapter
+- Firework
+- FWAction
+- FWorker
+- LaunchPad
+- Workflow
