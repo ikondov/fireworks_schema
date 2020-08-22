@@ -8,7 +8,6 @@ __maintainer__ = 'Ivan Kondov'
 import os
 import unittest
 from jsonschema.exceptions import ValidationError
-import fireworks_schema
 import fw_config_path
 from fireworks.fw_config import JSON_SCHEMA_VALIDATE
 from fireworks.utilities.fw_serializers import load_object_from_file
