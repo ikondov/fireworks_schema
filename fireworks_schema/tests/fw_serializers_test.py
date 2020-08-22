@@ -13,7 +13,7 @@ import fw_config_path
 from fireworks.fw_config import JSON_SCHEMA_VALIDATE
 from fireworks.utilities.fw_serializers import load_object_from_file
 
-SAMPLES_DIR = os.path.join(fireworks_schema.ROOT_DIR, 'samples')
+SAMPLES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'samples')
 
 
 class JSONSchemaFWserialisersTest(unittest.TestCase):

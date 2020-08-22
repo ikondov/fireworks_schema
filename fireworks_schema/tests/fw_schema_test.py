@@ -13,7 +13,7 @@ from jsonschema.exceptions import SchemaError
 from jsonschema import Draft7Validator
 import fireworks_schema
 
-SAMPLES_DIR = os.path.join(fireworks_schema.ROOT_DIR, 'samples')
+SAMPLES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'samples')
 
 
 class JSONSchemaTest(unittest.TestCase):
