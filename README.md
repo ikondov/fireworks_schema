@@ -1,5 +1,5 @@
 # JSON Schema for FireWorks
-This package provides a JSON schema for the [FireWorks package](https://github.com/materialsproject/fireworks).
+This package provides a [JSON schema](https://json-schema.org/) for the [FireWorks](https://github.com/materialsproject/fireworks) package.
 
 ## Why should I use JSON schema?
 
@@ -9,9 +9,11 @@ mismatches of data types may produce run-time errors, such as missing keywords
 or wrong data types, that are more difficult to handle than a validation of the
 initial input.
 
-JSON schema provides a formal human- and machine-readable description of
+The *fireworks_schema* package provides a formal human- and machine-readable description of
 the data types used in classes in FireWorks. Additionally, a function is provided
 that checks the validity of JSON and YAML inputs immediately before deserialization.
+
+## Using *fireworks_schema* to validate input for FireWorks
 
 There are three ways to activate JSON schema validation:
 
@@ -20,7 +22,7 @@ There are three ways to activate JSON schema validation:
 * Modify the list of classes for automatic validation
 
 
-## Call the schema validator explicitly
+### Call the schema validator explicitly
 
 This is the case when you use Python but read JSON/YAML serialized objects
 provided externally. In the following example, a serialized workflow object is
@@ -37,7 +39,7 @@ loaded from a YAML file and validated against the Workflow schema:
   wf = Workflow.from_dict(dct)
 ```
 
-## Activate automatic schema validation
+### Activate automatic schema validation
 
 To activate automatic schema validation you must specify:
 
@@ -57,7 +59,7 @@ classes is loaded from file. You can find the default
 ``JSON_SCHEMA_VALIDATE_LIST`` in ``fw_config.py`` file in the FireWorks source.
 
 
-## Modify the list of classes for automatic validation
+### Modify the list of classes for automatic validation
 
 You can modify the default ``JSON_SCHEMA_VALIDATE_LIST`` in your FWConfig file.
 For example, to turn on automatic validation for serialized ``Firework`` and
