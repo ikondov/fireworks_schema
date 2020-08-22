@@ -14,7 +14,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='fireworks_schema',
-    version='2020.2',
+    version='1.0.0',
     description='JSON Schema for FireWorks',
     long_description=long_description,
     long_description_content_type='text/markdown',
