@@ -26,7 +26,7 @@ setup(
     packages=find_packages(),
     package_data={'fireworks_schema': ['schema/*.json'],
                   'fireworks_schema.tests': ['*.yaml', 'samples/*/*.json']},
-    install_requires=['jsonschema>=3.2.0', 'fireworks>=1.9.6'],
+    install_requires=['jsonschema>=3.2.0', 'fireworks>1.9.6'],
     extras_require={},
     classifiers=['Programming Language :: Python',
                  'Development Status :: 4 - Beta',
