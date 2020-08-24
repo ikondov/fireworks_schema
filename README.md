@@ -13,6 +13,28 @@ The *fireworks_schema* package provides a formal human- and machine-readable des
 the data types used in classes in FireWorks. Additionally, a function is provided
 that checks the validity of JSON and YAML inputs immediately before deserialization.
 
+## Installing *fireworks_schema*
+
+The recommended way is to install this package into your virtual environment using ``pip`` (in any folder):
+
+```
+python -m pip install fireworks-schema
+```
+
+Alternatively you can download a release from the GitHub
+[repository](https://github.com/ikondov/fireworks_schema), unpack the archive, change into the folder containing ``setup.py`` and run:
+
+```
+python setup.py install
+```
+
+After the installation you can run the tests, for example using the *nose* package:
+
+```
+nosetests fireworks_schema.tests
+```
+
+
 ## Using *fireworks_schema* to validate input for FireWorks
 
 There are three ways to activate JSON schema validation:
