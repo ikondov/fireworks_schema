@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 __author__ = 'Ivan Kondov'
-__copyright__ = 'Copyright 2020, Karlsruhe Institute of Technology'
+__copyright__ = 'Copyright 2020-2021, Karlsruhe Institute of Technology'
 __email__ = 'ivan.kondov@kit.edu'
 __maintainer__ = 'Ivan Kondov'
 
@@ -14,7 +14,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='fireworks_schema',
-    version='1.0.0',
+    version='1.0.1',
     description='JSON Schema for FireWorks',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -26,7 +26,7 @@ setup(
     packages=find_packages(),
     package_data={'fireworks_schema': ['schema/*.json'],
                   'fireworks_schema.tests': ['*.yaml', 'samples/*/*.json']},
-    install_requires=['jsonschema>=3.2.0', 'fireworks>1.9.6'],
+    install_requires=['jsonschema>=3.2.0', 'fireworks>=1.9.7'],
     extras_require={},
     classifiers=['Programming Language :: Python',
                  'Development Status :: 4 - Beta',
