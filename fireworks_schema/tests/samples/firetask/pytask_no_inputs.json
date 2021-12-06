@@ -1,0 +1,8 @@
+{
+  "_fw_name": "PyTask",
+  "func": "auxiliary.print_func",
+  "outputs": [
+    "nothing"
+  ],
+  "kwargs": {}
+}

@@ -38,8 +38,7 @@
         "items": {
           "$ref": "generic.json#/Identifier"
         },
-        "default": [],
-        "uniqueItems": true
+        "default": []
       },
       "outputs": {
         "type": "array",
