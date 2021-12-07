@@ -5,11 +5,17 @@
     "type": "object",
     "properties": {
       "name": {
-        "type": "string"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
       },
       "query": {
-        "type": "string",
-        "default": "{}"
+        "type": "string"
       },
       "category": {
         "oneOf": [
@@ -33,6 +39,11 @@
       "env": {
         "type": "object"
       }
-    }
+    },
+    "required": [
+      "name",
+      "category",
+      "query"
+    ]
   }
 }

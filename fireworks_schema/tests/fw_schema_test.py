@@ -82,12 +82,13 @@ class JSONSchemaValidatorTest(unittest.TestCase):
 
     def test_validate_invalid(self):
         """ validate a set of invalid workflow samples against the schema """
-        path = os.path.join(SAMPLES_DIR, 'workflow-invalid')
-        for wf_file in os.listdir(path):
-            with open(os.path.join(path, wf_file), 'r') as fileh:
-                inst = json.load(fileh)
-                with self.assertRaises(ValidationError):
-                    fireworks_schema.validate(inst, 'Workflow')
+        for schema in ['Workflow', 'FWorker']:
+            path = os.path.join(SAMPLES_DIR, schema.lower()+'-invalid')
+            for wf_file in os.listdir(path):
+                with open(os.path.join(path, wf_file), 'r') as fileh:
+                    inst = json.load(fileh)
+                    with self.assertRaises(ValidationError):
+                        fireworks_schema.validate(inst, schema)
 
 
 if __name__ == '__main__':
