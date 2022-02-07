@@ -9,7 +9,7 @@ import os
 import sys
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
+with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 setup(
@@ -26,7 +26,7 @@ setup(
     packages=find_packages(),
     package_data={'fireworks_schema': ['schema/*.json'],
                   'fireworks_schema.tests': ['*.yaml', 'samples/*/*.json']},
-    install_requires=['jsonschema>=3.2.0', 'fireworks>=1.9.7'],
+    install_requires=['jsonschema>=3.2.0', 'fireworks>=2.0.2', 'pymongo>=3.9.0'],
     extras_require={},
     classifiers=['Programming Language :: Python',
                  'Development Status :: 4 - Beta',
@@ -37,6 +37,6 @@ setup(
                  'Topic :: Other/Nonlisted Topic',
                  'Topic :: Scientific/Engineering'],
     test_suite='nose.collector',
-    tests_require=['nose'],
+    tests_require=['nose', 'pytest'],
     python_requires='>=3.6',
 )
