@@ -1,2 +1,4 @@
 jsonschema>=3.2.0
-fireworks>=1.9.7
+fireworks>=2.0.2
+pymongo>=3.9.0
+pytest>=7.0.0

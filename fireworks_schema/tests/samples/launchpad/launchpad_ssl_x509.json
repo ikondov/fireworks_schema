@@ -5,12 +5,11 @@
   "authsource": "$external",
   "logdir": null,
   "strm_lvl": "ERROR",
-  "ssl": true,
-  "ssl_ca_certs": "/path/to/cacert.pem",
-  "ssl_certfile": "/path/to/usercert.pem",
-  "ssl_keyfile": "/path/to/userkey.pem",
-  "ssl_pem_passphrase": "private key passphrase",
   "mongoclient_kwargs": {
-    "authmechanism": "MONGODB-X509"
+    "tls": true,
+    "tlsCAFile": "/path/to/cacert.pem",
+    "tlsCertificateKeyFile": "/path/to/usercertkey.pem",
+    "tlsCertificateKeyFilePassword": "private key passphrase",
+    "authMechanism": "MONGODB-X509"
   }
 }

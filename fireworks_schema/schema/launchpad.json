@@ -57,45 +57,6 @@
           "wf_user_indices": {
             "type": "array"
           },
-          "ssl": {
-            "type": "boolean"
-          },
-          "ssl_ca_certs": {
-            "oneOf": [
-              {
-                "$ref": "generic.json#/AbsoluteFilePath"
-              },
-              {
-                "const": null
-              }
-            ]
-          },
-          "ssl_certfile": {
-            "oneOf": [
-              {
-                "$ref": "generic.json#/AbsoluteFilePath"
-              },
-              {
-                "const": null
-              }
-            ]
-          },
-          "ssl_keyfile": {
-            "oneOf": [
-              {
-                "$ref": "generic.json#/AbsoluteFilePath"
-              },
-              {
-                "const": null
-              }
-            ]
-          },
-          "ssl_pem_passphrase": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "authsource": {
             "type": "string",
             "minLength": 1
@@ -103,11 +64,55 @@
           "mongoclient_kwargs": {
             "type": "object",
             "properties": {
-              "authmechanism": {
+              "tls": {
+                "type": "boolean"
+              },
+              "tlsCAFile": {
+                "oneOf": [
+                  {
+                    "$ref": "generic.json#/AbsoluteFilePath"
+                  },
+                  {
+                    "const": null
+                  }
+                ]
+              },
+              "tlsCRLFile": {
+                "oneOf": [
+                  {
+                    "$ref": "generic.json#/AbsoluteFilePath"
+                  },
+                  {
+                    "const": null
+                  }
+                ]
+              },
+              "tlsCertificateKeyFile": {
+                "oneOf": [
+                  {
+                    "$ref": "generic.json#/AbsoluteFilePath"
+                  },
+                  {
+                    "const": null
+                  }
+                ]
+              },
+              "tlsCertificateKeyFilePassword": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "tlsAllowInvalidHostnames": {
+                "type": "boolean"
+              },
+              "tlsAllowInvalidCertificates": {
+                "type": "boolean"
+              },
+              "authMechanism": {
                 "enum": [
                   "SCRAM-SHA-256",
                   "SCRAM-SHA-1",
-                  "MONGODB-CR",
                   "GSSAPI",
                   "MONGODB-X509",
                   "PLAIN",
