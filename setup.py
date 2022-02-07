@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 __author__ = 'Ivan Kondov'
-__copyright__ = 'Copyright 2020-2021, Karlsruhe Institute of Technology'
+__copyright__ = 'Copyright 2020-2022, Karlsruhe Institute of Technology'
 __email__ = 'ivan.kondov@kit.edu'
 __maintainer__ = 'Ivan Kondov'
 
@@ -14,7 +14,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='fireworks_schema',
-    version='1.0.2',
+    version='1.1.0',
     description='JSON Schema for FireWorks',
     long_description=long_description,
     long_description_content_type='text/markdown',
