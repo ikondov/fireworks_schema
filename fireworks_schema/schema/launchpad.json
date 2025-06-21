@@ -10,7 +10,8 @@
           "uri_mode": {
             "enum": [
               null,
-              false
+              false,
+              true
             ],
             "default": false
           },
