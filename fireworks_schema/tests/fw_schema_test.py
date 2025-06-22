@@ -37,6 +37,7 @@ class JSONSchemaTest(unittest.TestCase):
             'firework.json',
             'foreachtask.json',
             'fwaction.json',
+            'fwconfig.json',
             'fworker.json',
             'generic.json',
             'getfilestask.json',
@@ -69,7 +70,7 @@ class JSONSchemaValidatorTest(unittest.TestCase):
     def test_validate(self):
         """validate a set of samples against the schema directly"""
         schemas = ['Firetask', 'Firework', 'Workflow', 'LaunchPad', 'FWorker',
-                   'CommonAdapter']
+                   'CommonAdapter', 'FWConfig']
         for schema in schemas:
             path = os.path.join(SAMPLES_DIR, schema.lower())
             for wf_file in os.listdir(path):

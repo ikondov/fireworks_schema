@@ -1,0 +1,250 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/FWConfig",
+  "FWConfig": {
+    "additionalProperties": false,
+    "properties": {
+      "NEGATIVE_FWID_CTR": {
+        "type": "integer",
+        "default": 0
+      },
+      "ADD_USER_PACKAGES": {
+        "type": "array",
+        "items": {
+          "$ref": "generic.json#/Identifier"
+        },
+        "uniqueItems": true
+      },
+      "FW_NAME_UPDATES": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": "Alternative _fw_name for deserialization"
+      },
+      "YAML_STYLE": {
+        "type": "boolean",
+        "default": false
+      },
+      "FW_BLOCK_FORMAT": {
+        "$ref": "generic.json#/Identifier",
+        "default": "%Y-%m-%d-%H-%M-%S-%f"
+      },
+      "FW_LOGGING_FORMAT": {
+        "$ref": "generic.json#/Identifier",
+        "default": "%(asctime)s %(levelname)s %(message)s"
+      },
+      "QUEUE_RETRY_ATTEMPTS": {
+        "type": "integer",
+        "default": 10,
+        "minimum": 0
+      },
+      "QUEUE_UPDATE_INTERVAL": {
+        "type": "integer",
+        "default": 5,
+        "minimum": 0
+      },
+      "QUEUE_JOBNAME_MAXLEN": {
+        "type": "integer",
+        "default": 20,
+        "minimum": 1
+      },
+      "SUBMIT_SCRIPT_NAME": {
+        "$ref": "generic.json#/Identifier",
+        "default": "FW_submit.script"
+      },
+      "PRINT_FW_JSON": {
+        "type": "boolean",
+        "default": true
+      },
+      "PRINT_FW_YAML": {
+        "type": "boolean",
+        "default": false
+      },
+      "JSON_SCHEMA_VALIDATE": {
+        "type": "boolean",
+        "default": false
+      },
+      "JSON_SCHEMA_VALIDATE_LIST": {
+        "type": "array",
+        "items": {
+          "$ref": "generic.json#/Identifier"
+        },
+        "uniqueItems": true
+      },
+      "PING_TIME_SECS": {
+        "type": "integer",
+        "default": 3600,
+        "minimum": 0
+      },
+      "RUN_EXPIRATION_SECS": {
+        "type": "integer",
+        "default": 14400,
+        "minimum": 0
+      },
+      "MAINTAIN_INTERVAL": {
+        "type": "integer",
+        "default": 120,
+        "minimum": 0
+      },
+      "RESERVATION_EXPIRATION_SECS": {
+        "type": "integer",
+        "default": 1209600,
+        "minimum": 1
+      },
+      "WFLOCK_EXPIRATION_SECS": {
+        "type": "integer",
+        "default": 300,
+        "minimum": 0
+      },
+      "WFLOCK_EXPIRATION_KILL": {
+        "type": "boolean",
+        "default": false
+      },
+      "RAPIDFIRE_SLEEP_SECS": {
+        "type": "integer",
+        "default": 60,
+        "minimum": 0
+      },
+      "LAUNCHPAD_LOC": {
+        "oneOf": [
+          {
+            "$ref": "generic.json#/AbsoluteFilePath"
+          },
+          {
+            "const": null
+          }
+        ],
+        "default": null
+      },
+      "FWORKER_LOC": {
+        "oneOf": [
+          {
+            "$ref": "generic.json#/AbsoluteFilePath"
+          },
+          {
+            "const": null
+          }
+        ],
+        "default": null
+      },
+      "QUEUEADAPTER_LOC": {
+        "oneOf": [
+          {
+            "$ref": "generic.json#/AbsoluteFilePath"
+          },
+          {
+            "const": null
+          }
+        ],
+        "default": null
+      },
+      "CONFIG_FILE_DIR": {
+        "$ref": "generic.json#/FilePath",
+        "default": "."
+      },
+      "ROCKET_STREAM_LOGLEVEL": {
+        "$ref": "generic.json#/LoggingLevel",
+        "default": "INFO"
+      },
+      "QSTAT_FREQUENCY": {
+        "type": "integer",
+        "default": 50,
+        "minimum": 1
+      },
+      "ALWAYS_CREATE_NEW_BLOCK": {
+        "type": "boolean",
+        "default": false
+      },
+      "TEMPLATE_DIR": {
+        "oneOf": [
+          {
+            "$ref": "generic.json#/AbsoluteFilePath"
+          },
+          {
+            "const": null
+          }
+        ],
+        "default": null
+      },
+      "REMOVE_USELESS_DIRS": {
+        "type": "boolean",
+        "default": true
+      },
+      "DS_PASSWORD": {
+        "$ref": "generic.json#/Identifier",
+        "default": "1234"
+      },
+      "STORE_PACKING_INFO": {
+        "type": "boolean",
+        "default": true
+      },
+      "PW_CHECK_NUM": {
+        "type": "integer",
+        "default": 10,
+        "minimum": 0
+      },
+      "TRACKER_LINES": {
+        "type": "integer",
+        "default": 25,
+        "minimum": 1
+      },
+      "SORT_FWS": {
+        "enum": ["FILO", "FIFO"]
+      },
+      "ENCODE_MONTY": {
+        "type": "boolean",
+        "default": true
+      },
+      "DECODE_MONTY": {
+        "type": "boolean",
+        "default": true
+      },
+      "EXCEPT_DETAILS_ON_RERUN": {
+        "type": "boolean",
+        "default": false
+      },
+      "WEBSERVER_HOST": {
+        "oneOf": [
+          {
+            "$ref": "generic.json#/Hostname"
+          },
+          {
+            "$ref": "generic.json#/IPAddress"
+          }
+        ],
+        "default": "127.0.0.1"
+      },
+      "WEBSERVER_PORT": {
+        "type": "integer",
+        "default": 5000,
+        "minimum": 0
+      },
+      "WEBSERVER_PERFWARNINGS": {
+        "type": "boolean",
+        "default": false
+      },
+      "MONGO_SOCKET_TIMEOUT_MS": {
+        "type": "integer",
+        "default": 300000,
+        "minimum": 0
+      },
+      "GRIDFS_FALLBACK_COLLECTION": {
+        "$ref": "generic.json#/Identifier",
+        "default": "fw_gridfs"
+      },
+      "MONGOMOCK_SERVERSTORE_FILE": {
+        "oneOf": [
+          {
+            "$ref": "generic.json#/AbsoluteFilePath"
+          },
+          {
+            "const": null
+          }
+        ],
+        "default": null
+      }
+    }
+  }
+}
