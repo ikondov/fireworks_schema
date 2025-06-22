@@ -1,39 +1,4 @@
-__author__ = 'Ivan Kondov'
-__copyright__ = 'Copyright 2020-2025, Karlsruhe Institute of Technology'
-__email__ = 'ivan.kondov@kit.edu'
-__maintainer__ = 'Ivan Kondov'
+from setuptools import setup
 
-from setuptools import setup, find_packages
-
-with open('README.md', 'r', encoding='utf-8') as fh:
-    long_description = fh.read()
-
-setup(
-    name='fireworks_schema',
-    version='1.2.0',
-    description='JSON Schema for FireWorks',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    author='Ivan Kondov',
-    author_email='ivan.kondov@kit.edu',
-    url='https://github.com/ikondov/fireworks_schema',
-    keywords=['workflow system', 'json schema', 'fireworks'],
-    license='BSD-3-Clause License',
-    packages=find_packages(),
-    package_data={'fireworks_schema': ['schema/*.json'],
-                  'fireworks_schema.tests': ['*.yaml', 'samples/*/*.json']},
-    install_requires=['jsonschema>=4.0.0', 'fireworks>=2.0.2', 'pymongo>=3.9.0',
-                      'semantic-version'],
-    extras_require={},
-    classifiers=['Programming Language :: Python',
-                 'Development Status :: 4 - Beta',
-                 'Intended Audience :: Science/Research',
-                 'Intended Audience :: System Administrators',
-                 'Intended Audience :: Information Technology',
-                 'Operating System :: OS Independent',
-                 'Topic :: Other/Nonlisted Topic',
-                 'Topic :: Scientific/Engineering'],
-    test_suite='nose.collector',
-    tests_require=['nose', 'pytest'],
-    python_requires='>=3.6',
-)
+if __name__ == '__main__':
+    setup()
