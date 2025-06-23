@@ -1,0 +1,15 @@
+{
+  "LAUNCHPAD_LOC": "/home/ubuntu/.fireworks/launchpad.yaml",
+  "MONGOMOCK_SERVERSTORE_FILE": "/home/ubuntu/.fireworks/mongomock.json",
+  "ROCKET_STREAM_LOGLEVEL": "DEBUG",
+  "JSON_SCHEMA_VALIDATE": true,
+  "JSON_SCHEMA_VALIDATE_LIST": [
+    "CommonAdapter",
+    "Firework",
+    "FWAction",
+    "FWorker",
+    "LaunchPad",
+    "Workflow"
+  ],
+  "FW_NAME_UPDATES": {"Transfer Task": "FileTransferTask"}
+}

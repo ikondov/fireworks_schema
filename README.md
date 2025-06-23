@@ -1,5 +1,6 @@
 # JSON Schema for FireWorks
-This package provides a [JSON schema](https://json-schema.org/) for the [FireWorks](https://github.com/materialsproject/fireworks) package.
+This package provides a [JSON schema](https://json-schema.org/) for
+the [FireWorks](https://github.com/materialsproject/fireworks) package.
 
 ## Why should I use JSON schema?
 
@@ -16,23 +17,25 @@ that checks the validity of JSON and YAML inputs immediately before deserializat
 
 ## Installing *fireworks_schema*
 
-The recommended way to install this package into your virtual environment is using ``pip`` (in any folder):
+The recommended way to install this package into your virtual environment is
+using ``pip`` (in any folder):
 
 ```
 python -m pip install fireworks-schema
 ```
 
 Alternatively you can download a release from the GitHub
-[repository](https://github.com/ikondov/fireworks_schema), unpack the archive, change into the folder containing ``setup.py`` and run:
+[repository](https://github.com/ikondov/fireworks_schema), unpack the archive,
+change into the top-level folder containing ``setup.cfg`` and run:
 
 ```
-python setup.py install
+python -m pip install .[test]
 ```
 
-After the installation you can run the tests, for example using the *nose* package:
+After the installation you can run the tests (from the top-level folder):
 
 ```
-nosetests fireworks_schema.tests
+cd fireworks_schema/tests && pytest
 ```
 
 
