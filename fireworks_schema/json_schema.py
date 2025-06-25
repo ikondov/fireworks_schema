@@ -17,9 +17,15 @@ SCHEMA_DIR = os.path.join(ROOT_DIR, 'schema')
 PATH_REGISTRY = {f: os.path.join(SCHEMA_DIR, f) for f in os.listdir(SCHEMA_DIR)}
 
 
+class RegistryError(Exception):
+    """exception to raise with using the registry"""
+
+
 def get_schema(schema_name):
     """get schema dictionary and absolute path"""
     schema_file = schema_name.lower() + '.json'
+    if schema_file not in PATH_REGISTRY:
+        raise RegistryError('schema file name not found in registry')
     with open(PATH_REGISTRY[schema_file], 'r', encoding='utf-8') as fileh:
         schema_dict = json.load(fileh)
     return schema_dict, PATH_REGISTRY[schema_file]
@@ -39,7 +45,7 @@ if jsonschema_version >= semantic_version.Version('4.18.0'):
         """register a schema for a custom class outside of fireworks"""
         schema_file = os.path.basename(schema_path)
         if schema_file in PATH_REGISTRY:
-            raise ValueError('schema file name already in registry')
+            raise RegistryError('schema file name already in registry')
         PATH_REGISTRY[schema_file] = os.path.abspath(schema_path)
         with open(schema_path, 'r', encoding='utf-8') as fileh:
             schema_dict = json.load(fileh)
@@ -56,7 +62,7 @@ else:
         """register a schema for a custom class outside of fireworks"""
         schema_file = os.path.basename(schema_path)
         if schema_file in PATH_REGISTRY:
-            raise ValueError('schema file name already in registry')
+            raise RegistryError('schema file name already in registry')
         PATH_REGISTRY[schema_file] = os.path.abspath(schema_path)
 
     def validate_with_refresolver(instance, schema_name):
