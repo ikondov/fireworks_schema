@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/FWIntegerArray",
+  "FWIntegerArray": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "_fw_name": {
+        "const": "{{integer_array.IntegerArray}}"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
+      }
+    },
+    "required": [
+      "_fw_name"
+    ]
+  }
+}
