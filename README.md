@@ -89,3 +89,56 @@ For example, to turn on automatic validation for serialized ``Firework`` and
   JSON_SCHEMA_VALIDATE: true
   JSON_SCHEMA_VALIDATE_LIST: [Firework, Workflow]
 ```
+
+### Register external schemas
+
+Schemas for all relevant classes in FireWorks are provided with this package and
+they work "out of the box". It is possible to use custom schemas for further classes,
+that are sub-classes of `fireworks.utilities.fw_serializers.FWSerializable`, provided
+by other packages but not FireWorks. For this, every schema has to be registered
+like this:
+
+```python
+  import fireworks_schema
+  fireworks_schema.register_schema('/absolute/path/to/the/schema.json')
+```
+
+After that, the schema can be used for both explicit and automatic validation as
+described in the previous sections.
+
+Currently, these restrictions/conventions apply:
+* The filename, e.g. `schema.json` as in the example, must be different from
+the file names of already registered schemas. This restriction comes about because
+the `$id` schema property is currently not used.
+* With `jsonschema < 4.18.0` all referenced schemas must be installed in the
+same directory. This implies that the default schemas provided with `fireworks_schema`
+cannot be used from custom schemas if `jsonschema < 4.18.0`.
+* The schema filename is lower case of the schema name which in turn is the class name.
+* Only JSON schema [draft-07](https://json-schema.org/draft-07) must be used.
+
+Here an example for a custom schema with filename `fwintegerarray.json`:
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/FWIntegerArray",
+  "FWIntegerArray": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "_fw_name": {
+        "const": "{{FWIntegerArray}}"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
+      }
+    },
+    "required": [
+      "_fw_name"
+    ]
+  }
+}
+```

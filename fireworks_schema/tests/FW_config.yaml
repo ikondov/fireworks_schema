@@ -6,3 +6,4 @@ JSON_SCHEMA_VALIDATE_LIST:
 - FWorker
 - LaunchPad
 - Workflow
+- IntegerArray
