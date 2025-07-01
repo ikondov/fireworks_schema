@@ -80,7 +80,8 @@ The default value of ``JSON_SCHEMA_VALIDATE`` is ``false``.
 If automatic validation is turned on, i.e. ``JSON_SCHEMA_VALIDATE`` is ``true``,
 then validation is performed only for the classes specified in the list
 ``JSON_SCHEMA_VALIDATE_LIST``, whenever an object of these
-classes is loaded from file. There is no default for ``JSON_SCHEMA_VALIDATE_LIST``
+classes is loaded from file or from string.
+There is no default for ``JSON_SCHEMA_VALIDATE_LIST``
 and therefore you must set ``JSON_SCHEMA_VALIDATE_LIST`` in your FWConfig file.
 For example, to turn on automatic validation for serialized ``Firework`` and
 ``Workflow`` objects these two lines must be added to the FWConfig file:
@@ -89,6 +90,36 @@ For example, to turn on automatic validation for serialized ``Firework`` and
   JSON_SCHEMA_VALIDATE: true
   JSON_SCHEMA_VALIDATE_LIST: [Firework, Workflow]
 ```
+
+FireWorks performs automatic validation only when `from_file()` or `from_format()` methods
+of the listed classes are called, i.e. only on reading from files and strings. This implies
+that the utility function `load_object_from_file` also performs validation. Otherwise FireWorks
+will not perform validation in scenarios such as dealing with documents from/to a database
+or from/to a URI. To validate after having read a document from a database / URI and before
+deserializing one should use `fw_schema_deserialize` to decorate the `from_dict()` method.
+To validate after serialization and before writing to a database / URI one should decorate
+the `to_dict()` method with `fw_schema_serialize`, e.g.:
+
+```python
+from fireworks_schema import fw_schema_deserialize, fw_schema_serialize
+
+class MyClass(FWSerializable):
+    ...
+
+    @classmethod
+    @fw_schema_deserialize
+    def from_dict(cls, dct):
+        ...
+        return cls(...)
+
+    @fw_schema_serialize
+    def to_dict(self):
+        dct = ...
+        return dct
+```
+
+Note that the decorators honor the `JSON_SCHEMA_VALIDATE` setting but not the
+`JSON_SCHEMA_VALIDATE_LIST`.
 
 ### Register external schemas
 
