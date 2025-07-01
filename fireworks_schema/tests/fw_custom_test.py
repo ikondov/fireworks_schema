@@ -75,5 +75,29 @@ class CustomSchemaFWserialiserTest(unittest.TestCase):
             self.fail('Validation error: '+err.message)
 
 
+class CustomSchemaDecoratorTest(unittest.TestCase):
+    """test validators via decorating the from_dict() and to_dict() methods"""
+
+    def setUp(self):
+        if not JSON_SCHEMA_VALIDATE:
+            raise unittest.SkipTest('Skipping because JSON_SCHEMA_VALIDATE=False')
+        instance_path = os.path.join(SAMPLES_DIR, 'integer_array.json')
+        with open(instance_path, 'r', encoding='utf-8') as fileh:
+            self.instance = json.load(fileh)
+
+    def test_validate_from_dict(self):
+        """validate IntegerArray schema via decorating from_dict()"""
+        del self.instance['_fw_name']
+        with self.assertRaises(ValidationError):
+            IntegerArray.from_dict(self.instance)
+
+    def test_validate_to_dict(self):
+        """validate IntegerArray schema via decorating to_dict()"""
+        obj = IntegerArray.from_dict(self.instance)
+        obj.data.append('a')
+        with self.assertRaises(ValidationError):
+            obj.to_dict()
+
+
 if __name__ == '__main__':
     unittest.main()

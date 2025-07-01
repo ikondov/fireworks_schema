@@ -9,6 +9,7 @@ import os
 import json
 from pathlib import Path
 from importlib.metadata import version
+from fireworks.fw_config import JSON_SCHEMA_VALIDATE
 import jsonschema
 import semantic_version
 
@@ -72,3 +73,22 @@ else:
         jsonschema.validate(instance, schema_dict, resolver=custom_res,
                             format_checker=jsonschema.FormatChecker())
     validate = validate_with_refresolver
+
+
+def fw_schema_deserialize(func):
+    """decorator function to activate validation in from_dict() methods"""
+    def wrapper_validator(cls, dct):
+        if JSON_SCHEMA_VALIDATE:
+            validate(dct, cls.__name__)
+        return func(cls, dct)
+    return wrapper_validator
+
+
+def fw_schema_serialize(func):
+    """decorator function to activate validation in to_dict() methods"""
+    def wrapper_validator(*args):
+        dct = func(*args)
+        if JSON_SCHEMA_VALIDATE:
+            validate(dct, args[0].__class__.__name__)
+        return dct
+    return wrapper_validator
