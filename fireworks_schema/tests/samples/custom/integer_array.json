@@ -1,4 +1,5 @@
 {
   "_fw_name": "{{integer_array.IntegerArray}}",
-  "data": [0, 1, -2]
+  "data": [0, 1, -2],
+  "reftest": true
 }

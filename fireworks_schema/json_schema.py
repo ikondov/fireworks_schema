@@ -16,6 +16,7 @@ import semantic_version
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 SCHEMA_DIR = os.path.join(ROOT_DIR, 'schema')
 PATH_REGISTRY = {f: os.path.join(SCHEMA_DIR, f) for f in os.listdir(SCHEMA_DIR)}
+__SCHEMA_REGISTRY = None
 
 
 class RegistryError(Exception):
@@ -36,26 +37,29 @@ jsonschema_version = semantic_version.Version(version('jsonschema'))
 if jsonschema_version >= semantic_version.Version('4.18.0'):
     from referencing import Registry, Resource
 
-    resources = []
-    for file_, path in PATH_REGISTRY.items():
-        with open(path, 'r', encoding='utf-8') as fp:
-            resources.append((file_, Resource.from_contents(json.load(fp))))
-    registry = Registry().with_resources(resources)
+    def get_schema_registry(path_registry):
+        """construct a registry object"""
+        resources = []
+        for file_, path in path_registry.items():
+            with open(path, 'r', encoding='utf-8') as fp:
+                resources.append((file_, Resource.from_contents(json.load(fp))))
+        return Registry().with_resources(resources)
+
+    __SCHEMA_REGISTRY = get_schema_registry(PATH_REGISTRY)
 
     def register_schema(schema_path):
         """register a schema for a custom class outside of fireworks"""
+        global __SCHEMA_REGISTRY
         schema_file = os.path.basename(schema_path)
         if schema_file in PATH_REGISTRY:
             raise RegistryError(f'schema file {schema_file} already in registry')
         PATH_REGISTRY[schema_file] = os.path.abspath(schema_path)
-        with open(schema_path, 'r', encoding='utf-8') as fileh:
-            schema_dict = json.load(fileh)
-        registry.with_resource(schema_file, schema_dict)
+        __SCHEMA_REGISTRY = get_schema_registry(PATH_REGISTRY)
 
     def validate_with_referencing(instance, schema_name):
         """JSON schema validator using the referencing package"""
         schema_dict, _ = get_schema(schema_name)
-        jsonschema.validate(instance, schema_dict, registry=registry,
+        jsonschema.validate(instance, schema_dict, registry=__SCHEMA_REGISTRY,
                             format_checker=jsonschema.FormatChecker())
     validate = validate_with_referencing
 else:
