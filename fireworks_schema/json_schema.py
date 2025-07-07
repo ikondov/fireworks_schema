@@ -63,6 +63,13 @@ class _SchemaRegistry:
         schema_file = os.path.basename(schema_path)
         if schema_file in self.path_registry:
             raise RegistryError(f'schema file {schema_file} already in registry')
+        with open(schema_path, 'r', encoding='utf-8') as fileh:
+            try:
+                jsonschema.Draft7Validator.check_schema(json.load(fileh))
+            except (json.decoder.JSONDecodeError,
+                    jsonschema.exceptions.ValidationError) as err:
+                msg = f'schema in file {schema_file} not valid:\n{err}'
+                raise RegistryError(msg) from err
         self.path_registry[schema_file] = os.path.abspath(schema_path)
         if USE_REFERENCING:
             self.reg = self._get_registry()
@@ -80,13 +87,17 @@ def register_schema(schema_path):
 def validate(instance, schema_name):
     """JSON schema validator using the referencing package"""
     schema_dict = _schema_registry.get_schema(schema_name)
-    if USE_REFERENCING:
-        jsonschema.validate(instance, schema_dict, registry=_schema_registry.reg,
-                            format_checker=_format_checker)
-    else:
-        custom_res = _schema_registry.get_resolver(schema_name)
-        jsonschema.validate(instance, schema_dict, resolver=custom_res,
-                            format_checker=_format_checker)
+    try:
+        if USE_REFERENCING:
+            jsonschema.validate(instance, schema_dict, registry=_schema_registry.reg,
+                                format_checker=_format_checker)
+        else:
+            custom_res = _schema_registry.get_resolver(schema_name)
+            jsonschema.validate(instance, schema_dict, resolver=custom_res,
+                                format_checker=_format_checker)
+    except jsonschema.exceptions.ValidationError as err:
+        new_msg = f'{err}\n\n-> Started from schema {schema_name}.'
+        raise jsonschema.exceptions.ValidationError(new_msg)
 
 
 def fw_schema_deserialize(func):
