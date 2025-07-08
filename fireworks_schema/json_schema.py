@@ -84,7 +84,7 @@ def register_schema(schema_path):
     return _schema_registry.add(schema_path)
 
 
-def validate(instance, schema_name):
+def validate(instance, schema_name, debug=False):
     """JSON schema validator using the referencing package"""
     schema_dict = _schema_registry.get_schema(schema_name)
     try:
@@ -96,24 +96,35 @@ def validate(instance, schema_name):
             jsonschema.validate(instance, schema_dict, resolver=custom_res,
                                 format_checker=_format_checker)
     except jsonschema.exceptions.ValidationError as err:
-        new_msg = f'{err}\n\n-> Started from schema {schema_name}.'
-        raise jsonschema.exceptions.ValidationError(new_msg)
+        msg = f'{err}'
+        if debug:
+            msg = (f'{msg}\n\nValidation started with schema {schema_name}'
+                   f' with instance:\n{instance}')
+        raise jsonschema.exceptions.ValidationError(msg)
 
 
-def fw_schema_deserialize(func):
+def fw_schema_deserialize(func=None, debug=False):
     """decorator function to activate validation in from_dict() methods"""
-    def wrapper_validator(cls, dct):
-        if JSON_SCHEMA_VALIDATE:
-            validate(dct, cls.__name__)
-        return func(cls, dct)
-    return wrapper_validator
+    def decorator(func):
+        def wrapper_validator(cls, dct):
+            if JSON_SCHEMA_VALIDATE:
+                validate(dct, cls.__name__, debug=debug)
+            return func(cls, dct)
+        return wrapper_validator
+    if func:
+        return decorator(func)
+    return decorator
 
 
-def fw_schema_serialize(func):
+def fw_schema_serialize(func=None, debug=False):
     """decorator function to activate validation in to_dict() methods"""
-    def wrapper_validator(*args):
-        dct = func(*args)
-        if JSON_SCHEMA_VALIDATE:
-            validate(dct, args[0].__class__.__name__)
-        return dct
-    return wrapper_validator
+    def decorator(func):
+        def wrapper_validator(*args):
+            dct = func(*args)
+            if JSON_SCHEMA_VALIDATE:
+                validate(dct, args[0].__class__.__name__, debug=debug)
+            return dct
+        return wrapper_validator
+    if func:
+        return decorator(func)
+    return decorator
