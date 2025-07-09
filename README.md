@@ -118,8 +118,36 @@ class MyClass(FWSerializable):
         return dct
 ```
 
-Note that the decorators honor the `JSON_SCHEMA_VALIDATE` setting but not the
-`JSON_SCHEMA_VALIDATE_LIST`.
+Note that the decorators honor the `JSON_SCHEMA_VALIDATE` setting, which is `False`
+(default) or `True`, but not the `JSON_SCHEMA_VALIDATE_LIST`.
+
+
+### Exception handling
+
+When a custom schema is not valid then `SchemaError` is raised. When an instance
+does not validate against a (valid) schema then `ValidationError` is raised. The
+local schema and instance are displayed after the error description. Nevertheless,
+the schema and the instance with which the validator has been called are not
+displayed. These are known if the schema validator is called explicitly, i.e. by
+calling `fireworks_schema.validate(instance, schema_name)`. But when automatic
+validation is activated (either by the `JSON_SCHEMA_VALIDATE_LIST` or the decorator
+approaches outlined above) then these are hard to detect. For this purpose, the
+decorator accepts an optional `debug` parameter (`False` by default). By setting it
+to `True` the schema name and the instance are concatenated to the original message
+of the raised `ValidationError`.
+
+Example:
+
+```python
+class MyClass(FWSerializable):
+    ...
+
+    @classmethod
+    @fw_schema_deserialize(debug=True)
+    def from_dict(cls, dct):
+        ...
+```
+
 
 ### Register external schemas
 

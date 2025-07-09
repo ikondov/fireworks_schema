@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/FWIntegerArray",
-  "FWIntegerArray": {
+  "$ref": "#/IntegerArray",
+  "IntegerArray": {
     "type": "object",
     "additionalProperties": false,
     "properties": {
@@ -13,6 +13,9 @@
         "items": {
           "type": "integer"
         }
+      },
+      "reftest": {
+        "$ref": "refschema.json#/RefTest"
       }
     },
     "required": [

@@ -17,8 +17,8 @@ import fireworks_schema
 from .integer_array import IntegerArray
 
 SAMPLES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'samples', 'custom')
-SCHEMA_PATH = os.path.join(SAMPLES_DIR, 'integerarray.json')
-fireworks_schema.register_schema(SCHEMA_PATH)
+fireworks_schema.register_schema(os.path.join(SAMPLES_DIR, 'integerarray.json'))
+fireworks_schema.register_schema(os.path.join(SAMPLES_DIR, 'refschema.json'))
 
 
 class CustomSchemaTest(unittest.TestCase):
@@ -26,12 +26,14 @@ class CustomSchemaTest(unittest.TestCase):
 
     def test_validate_schema(self):
         """validate the schema against the metaschema"""
-        with open(SCHEMA_PATH, 'r', encoding='utf-8') as fileh:
-            schema_dict = json.load(fileh)
-        try:
-            Draft7Validator.check_schema(schema_dict)
-        except SchemaError as err:
-            self.fail('Schema validation error: '+str(err))
+        for schema_file in ('integerarray.json', 'refschema.json'):
+            schema_path = os.path.join(SAMPLES_DIR, schema_file)
+            with open(schema_path, 'r', encoding='utf-8') as fileh:
+                schema_dict = json.load(fileh)
+            try:
+                Draft7Validator.check_schema(schema_dict)
+            except SchemaError as err:
+                self.fail('Schema validation error: '+str(err))
 
 
 class CustomSchemaValidatorTest(unittest.TestCase):
